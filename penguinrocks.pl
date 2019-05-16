@@ -28,6 +28,8 @@
 #	0.8.2: Added user-agent
 #	0.9.0: Amended for public servers (removed beta server option since one no longer exists)
 #	       Disabled news function until a similar service comes online
+#	0.9.1: Fixed "--manifest" argument that I broke while cleaning things
+#	       Added "--profile" argument to choose what profile to launch
 
 # Must be run from the City of Heroes directory.  Running from an empty directory
 # will install a new copy of City of Heroes, which is probably not what you want.
@@ -41,7 +43,7 @@ use File::Copy;
 use File::Path;
 use Getopt::Long;
 
-my $version = "0.9.0";
+my $version = "0.9.1";
 my $useragent = 'PenguinRocks/' . $version . ' (' . $OSNAME . ')';
 
 my $silent = 0;
