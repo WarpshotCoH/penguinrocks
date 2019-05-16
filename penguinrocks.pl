@@ -50,7 +50,7 @@ my $patchonly = 0;
 my $launchonly = 0;
 my $verify = 0;
 my $manifest_file;
-my $key;
+my $profile;
 
 my $get_program;
 my $md5_program;
@@ -154,7 +154,8 @@ sub ParseOptions
 		'launchonly' => \$launchonly,
 		'verify' => \$verify,
 		'help' => \$help,
-		'manifest=s' => \$manifest_file
+		'manifest=s' => \$manifest_file,
+		'profile=i' => \$profile
 	);
 
 	$silent_launch = 1 if($silent);
@@ -174,6 +175,7 @@ sub ParseOptions
 		print "--launchonly: Only launch the City of Heroes client, do not patch it.\n";
 		print "--verify: Verify the checksums of the client files.\n";
 		print "--manifest: Specify an alternate manifest location.\n";
+		print "--profile: Choose what profile number to launch (see manifest for the order, starting from 0).\n";
 		print "\n";
 		print "Passing the City of Heroes option '-renderthread 0' may be required, as\n";
 		print "multithreaded rendering tends not to work on Linux.\n";
@@ -190,6 +192,7 @@ sub ParseOptions
 	}
 
 	$manifest_file = "http://patch.savecoh.com/manifest.xml" if(! $manifest_file);
+	$profile = 0 if(! $profile);
 
 	return @ARGV;
 }
@@ -305,6 +308,8 @@ sub RepairCoh
 
 	foreach my $file (@{$parsed_xml->{filelist}->{file}})
 	{
+		print "Checking $file->{name}...\n";
+
 		if($file->{size} == 0 and $file->{name} !~ /\.\./)
 		{
 			print "Removing $file->{name}\n" if(!$silent);
@@ -332,10 +337,20 @@ sub LaunchCoh
 {
 	my @args = @_;
 	my $command;
+	my $exe;
+	my $params;
 
 	my $parsed_xml = $parser->XMLin('.patches/manifest.xml');
-	my $exe = $parsed_xml->{profiles}->{launch}->[0]->{exec};
-	my $params = $parsed_xml->{profiles}->{launch}->[0]->{params};
+	if($parsed_xml->{profiles}->{launch}->[$profile])
+	{
+		print "Launching profile #$profile ($parsed_xml->{profiles}->{launch}->[$profile]->{content})\n";
+		$exe = $parsed_xml->{profiles}->{launch}->[$profile]->{exec};
+		$params = $parsed_xml->{profiles}->{launch}->[$profile]->{params};
+	}
+	else
+	{
+		die "Profile #$profile doesn't exist in the given manifest.\n";
+	}
 
 	if(-x "/opt/cxgames/bin/wine")
 	{
