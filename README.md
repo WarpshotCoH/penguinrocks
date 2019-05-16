@@ -1,9 +1,13 @@
 # Penguin on the Rocks
-***Current version: v0.9.0***
+***Current version: v0.9.1***
 
 A City of Heroes installer/patcher/launcher for the command line, written in Perl. *(Aka it works on Linux, so hallelujah.)*
 
 This script was passed along to me by a third party, after checking it over and amending it for the public servers I've released it here.
+
+## Recent changes (v0.9.1)
+ - Fixed `--manifest` argument that I broke while cleaning things
+ - Added `--profile` argument to choose what profile to launch
 
 ## System requirements
  - Perl 5 *(I have no clue if it'll run with Perl 6 or not)*
