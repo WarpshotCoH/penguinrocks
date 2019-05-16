@@ -189,7 +189,7 @@ sub ParseOptions
 		exit;
 	}
 
-	$manifest_file = "http://patch.savecoh.com/manifest.xml";
+	$manifest_file = "http://patch.savecoh.com/manifest.xml" if(! $manifest_file);
 
 	return @ARGV;
 }
