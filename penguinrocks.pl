@@ -348,6 +348,7 @@ sub LaunchCoh
 		print "Launching profile #$profile ($parsed_xml->{profiles}->{launch}->[$profile]->{content})\n";
 		$exe = $parsed_xml->{profiles}->{launch}->[$profile]->{exec};
 		$params = $parsed_xml->{profiles}->{launch}->[$profile]->{params};
+		$exe =~ s/\\/\//g;
 	}
 	else
 	{
