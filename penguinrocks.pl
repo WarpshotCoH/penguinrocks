@@ -104,32 +104,32 @@ sub Configure
 	}
 
 	# Web browser
-	if(system('lynx -version >/dev/null 2>&1') == 0)
-	{
-		print "Using Lynx for webpage display.\n" if(!$silent);
-		$web_program = 'lynx -dump ';
-	}
-	elsif(system('links -version >/dev/null 2>&1') == 0)
-	{
-		print "Using Links for webpage display.\n" if(!$silent);
-		$web_program = 'links -dump -html-numbered-links 1 ';
-	}
-	elsif(system('elinks -version >/dev/null 2>&1') == 0)
-	{
-		print "Using Elinks for webpage display.\n" if(!$silent);
-		$web_program = 'elinks -dump 1 ';
-	}
-	elsif(system('w3m -version >/dev/null 2>&1') == 0)
-	{
-		print "Using w3m for webpage display.\n" if(!$silent);
-		$web_program = 'w3m -dump ';
-	}
-	else
-	{
-		print "Unable to find a text-mode web browser.  To view news updates, one of\n";
-		print "Lynx, Links, Elinks, or w3m must be installed.\n";
-		$web_program = undef;
-	}
+	# if(system('lynx -version >/dev/null 2>&1') == 0)
+	# {
+	# 	print "Using Lynx for webpage display.\n" if(!$silent);
+	# 	$web_program = 'lynx -dump ';
+	# }
+	# elsif(system('links -version >/dev/null 2>&1') == 0)
+	# {
+	# 	print "Using Links for webpage display.\n" if(!$silent);
+	# 	$web_program = 'links -dump -html-numbered-links 1 ';
+	# }
+	# elsif(system('elinks -version >/dev/null 2>&1') == 0)
+	# {
+	# 	print "Using Elinks for webpage display.\n" if(!$silent);
+	# 	$web_program = 'elinks -dump 1 ';
+	# }
+	# elsif(system('w3m -version >/dev/null 2>&1') == 0)
+	# {
+	# 	print "Using w3m for webpage display.\n" if(!$silent);
+	# 	$web_program = 'w3m -dump ';
+	# }
+	# else
+	# {
+	# 	print "Unable to find a text-mode web browser.  To view news updates, one of\n";
+	# 	print "Lynx, Links, Elinks, or w3m must be installed.\n";
+	# 	$web_program = undef;
+	# }
 
 	exit(1) if($missing_programs);
 
